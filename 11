@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="referrer" content="same-origin">
+<title>$ROCK Token Airdrop</title>
+<link rel="shortcut icon" href="/assets/favicon.ico">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+<link href='/assets/style.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="particles-js">
+<div id="maintable">
+<div>
+<a href="/8OUCB8/">[Return To Ether Rock NFT 🔥]</a>
+<div style="float: right;">
+<a href="https://t.me/ethrock" target="_blank">Telegram Group</a>
+</div>
+</div>
+<div style="margin-top: 3px;">
+<img src="/assets/banner.png" class="img-fluid" style="width: 100%;">
+</div>
+<h3>$ROCK Token Airdrop</h3>
+<div class="row">
+<div class="col-sm-offset-2 col-sm-2 col-3 mb-sm-0 mb-4 pb-sm-0 pb-1 text-center count_down_days">
+<div class="h2 text-primary number">0</div>
+<div class="font-bg">天</div>
+</div>
+<span class="divider-vertical"></span>
+<div class="col-sm-2 col-3 mb-sm-0 mb-4 pb-sm-0 pb-1 text-center count_down_hours">
+<div class="h2 text-primary number">0</div>
+<div class="font-bg">小时</div>
+</div>
+<span class="divider-vertical"></span>
+<div class="col-sm-2 col-3 mb-sm-0 mb-4 pb-sm-0 pb-1 text-center count_down_minutes">
+<div class="h2 text-primary number">0</div>
+<div class="font-bg">分</div>
+</div>
+<span class="divider-vertical"></span>
+<div class="col-sm-2 col-3 mb-sm-0 mb-4 pb-sm-0 pb-1 text-center count_down_seconds">
+<div class="h2 text-primary number">0</div>
+<div class="font-bg">秒</div>
+</div>
+</div>
+<br>
+<div class="airdrop-block">
+<form id="airdrop-form" class="form-horizontal">
+<input name="ref" type="hidden" value="8OUCB8">
+<div class="form-group">
+<div class="col-sm-9 col-sm-offset-1">
+<input name="address" class="form-control" type="text" placeholder="输入ETH钱包地址领取空投">
+</div>
+<div class="col-sm-2 text-left">
+<button class="btn btn-primary" type="submit">Submit</button>
+</div>
+</div>
+</form>
+</div>
+<h4 class="text-left" style="margin-top: 80px;">$ROCK Tokens</h4>
+<p>The $ROCK is the governance token of the Ether Rock NFT project, and all the project income belongs to the $ROCK
+token holders.</p>
+<p>Contract Address: 0x4c7573fa7fD1Eb2C495D39F5882A1d3C5CC45057<br>
+Token Name: EtherRock Token<br>
+Symbol: $ROCK<br>
+Decimals: 18<br>
+Chain: Ethereum ERC20<br>
+<b>$ROCK will be listed on uniswap, coinbase and binance exchanges. Target price 1 $ROCK = 10 USDT.</b>
+</p>
+<h4 class="text-left" style="margin-top: 40px;">$ROCK Tokenomics</h4>
+<p>Total supply of $ROCK is 100,000,000. </p>
+<p>20,000,000 $ROCK tokens for airdrop. </p>
+<p>After all 100 Ether Rock NFTs are sold out, 20,000,000 $ROCK tokens will be given to Ether Rock holders, and
+50,000,000 $ROCK tokens will be added to Uniswap's liquidity pool together with the ETH from Ether Rock NFTs
+sales.</p>
+<p>10,000,000 $ROCK tokens for further development.</p>
+<h4 class="text-left" style="margin-top: 40px;">$ROCK Airdrop Description</h4>
+<p>The amount for airdrop is 20,000,000 $ROCK tokens. Send an ETH wallet address to participate in airdrop. Copy and
+share your referral link with friends. You and the invitee will be rewarded 10 $ROCK tokens both. Each account
+can refer up to 50 people, and the reward can be up to 500 $ROCK Tokens. </p>
+ <p>This airdrop uses Python machine learning system to identify referral cheating, and those who are identified as
+referral cheaters will be canceled the airdrop reward.</p>
+<p>Airdrop reward will be distributed after all 100 Ether Rock NFTs are sold out.</p>
+<h4 class="text-left" style="margin-top: 40px;">Road Map</h4>
+<p><b>PHASE 1 - ETHER ROCK ON SALE </b></p>
+<p>√ EtherRock.net launch.<br>√ Marketing efforts begin.<br>
+√ Ether Rock NFTs on sale.<br>√ $ROCK airdrop</p>
+<p><b>PHASE 2 - ETHER ROCK SOLD OUT</b></p>
+<p>&gt; Ether Rock NFTs sold out.<br>
+&gt; $ROCK airdrop distribution.<br>
+&gt; $ROCK given to Ether Rock holders<br>
+&gt; $ROCK listed on Uniswap.<br></p>
+<p><b>PHASE 3 - FURTHER DEVELOPMENT</b></p>
+<p>&gt; $ROCK listed on big exchanges such as Binance and Coinbase.<br>
+&gt; Project further development.</p>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="/assets/particles.js"></script>
+<script src="/assets/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+    var end_ts=1633071600;
+    var prev_days=0;
+    var prev_hours=0;
+    var prev_minutes=0;
+    var prev_seconds=0;
+    var do_countdown=function(){
+        var now_ts=Math.floor(new Date().getTime()/1000);
+        var ts_diff=end_ts-now_ts;
+        if(ts_diff<0){
+            clearInterval(interval);
+            location.reload();
+            return;
+        }
+        var days=Math.floor(ts_diff/60/60/24);
+        var hours=Math.floor((ts_diff-days*60*60*24)/60/60);
+        var minutes=Math.floor((ts_diff-days*60*60*24-hours*60*60)/60);
+        var seconds=Math.floor(ts_diff-days*60*60*24-hours*60*60-minutes*60);
+        if(prev_days!=days){
+            $('.count_down_days .number').text(days);
+        }
+        if(prev_hours!=hours){
+            $('.count_down_hours .number').text(hours);
+        }
+        if(prev_minutes!=minutes){
+            $('.count_down_minutes .number').text(minutes);
+        }
+        $('.count_down_seconds .number').text(seconds);
+        prev_days=days;
+        prev_hours=hours;
+        prev_minutes=minutes;
+        prev_seconds=seconds;
+    };
+    var interval=setInterval(do_countdown,1000);
+    do_countdown();
+})();
+</script>
+<script>
+(function(){
+    new ClipboardJS('.copy',{
+        text:function(trigger) {
+            var target=$(trigger);
+            if(target.attr('target')){
+                target=$(target.attr('target'));
+            }
+            return target.attr('text')||target.val()||target.text();
+        }
+    }).on('success',function(event){
+        var trigger=$(event.trigger);
+        var title_origin=trigger.attr('title');
+        var message=trigger.attr('data-copy-success');
+        trigger.removeAttr('title');
+        trigger.tooltip({
+            title:message?message:"复制成功",
+            trigger:'manual',
+        }).tooltip('show');
+        setTimeout(function(){
+            trigger.tooltip('destroy');
+            trigger.attr('title',title_origin);
+        },600);
+    }).on('error',function(e){
+        alert("复制错误");
+    });
+    window.init_page=function(selector){
+        $(selector).find('.qrcode').popover({
+            'content':'<div class="qrcode-title text-center" style="height:20px;"></div><div class="qrcode-content" style="width:170px;height:170px;"></div>',
+            'trigger':'focus',
+            'html':true,
+            'placement':'top',
+        }).on('shown.bs.popover',function(){
+            var popover_id=$(this).attr('aria-describedby');
+            var $content=$('#'+popover_id);
+            $content.css('z-index',2);
+            var title_holder=$content.find('.qrcode-title');
+            var content_holder=$content.find('.qrcode-content');
+            var title=$(this).attr('data-qrcode-title');
+            var text=$(this).attr('data-qrcode-text');
+            if(content_holder.attr('data-qrcode-text')==text){
+                return;
+            }
+            title_holder.text(title);
+            var qrcode=new QRCode(content_holder.get(0),{
+                text:text,
+                width:168,
+                height:168,
+                colorDark:'#000000',
+                colorLight:'#ffffff',
+                correctLevel:QRCode.CorrectLevel.M
+            });
+            content_holder.attr('data-qrcode-text',text);
+            // $(this).popover('show');
+        });
+    };
+    init_page(document);
+
+    $(document).on('click','#withdraw-btn',function(){
+        var block=$('.airdrop-block');
+        var address=$(this).attr('data-address');
+        block.load('/airdrop-withdraw',{
+            address:address,
+        },function(){
+            init_page(block);
+        });
+    });
+})();
+</script>
+<script src="/assets/encrypt.js"></script>
+<script>
+(function(){
+    function random_string(N){
+        if(!parseInt(N,10)) N = 6;
+        var rs = Math.floor(Math.pow(36, N) * Math.random()).toString(36);
+        return (Math.pow(10, N) + rs).substr(-N);
+    }
+    $(document).on('submit','#airdrop-form',function(e){
+        e.preventDefault();
+        var uuid='';
+        if(window.name&&window.name.startsWith('inch.uuid=')){
+            uuid=window.name.substring(10);
+        }else if(window.localStorage){
+            window.localStorage.getItem('uuid');
+        }
+        var tz='';
+        try{
+            tz=new Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }catch(e){}
+        var tz_offset='';
+        try{
+            tz_offset=parseInt(new Date().getTimezoneOffset()/-60);
+        }catch(e){}
+        var content={
+            address:$(this).find('input[name=address]').val(),
+            ref:$(this).find('input[name=ref]').val(),
+            uuid:uuid,
+            tz:tz,
+            tz_offset:tz_offset,
+            screen:window.screen.width+'x'+window.screen.height+'x'+window.screen.colorDepth,
+            user_agent:navigator.userAgent,
+            cpu:navigator.hardwareConcurrency,
+            lang:navigator.language||navigator.userLanguage,
+        };
+        var key=random_string(36);
+        content=AES256.encrypt(JSON.stringify(content),key);
+        var crypt=new JSEncrypt();
+        var pub=[
+            '-----BEGIN PUBLIC KEY-----',
+            'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVmYQhCYTnnkTPRMI5Ad3vfad9',
+            'lhjzOU92FZ3reUiN/vmqP/wC1DKKExYDsqa+w5xBP0AjGkfDWk3q4PlWu0UsBGZx',
+            '62Gvt0ds75u8FnmLv+ufMimF4962/9Lx7uyh9g1H3/ze5ZXscWYy3gtts9d2Ga0R',
+            'pl0X49Cz0JhYYicuGwIDAQAB',
+            '-----END PUBLIC KEY-----',
+        ];
+        crypt.setPublicKey(pub.join('\n'));
+        key=crypt.encrypt(key);
+        var block=$(this).parents('.airdrop-block');
+        block.load('/airdrop-submit',{content:content,key:key},function(){
+            init_page(block);
+        });
+    });
+})();
+</script>
+</body>
+</html>
