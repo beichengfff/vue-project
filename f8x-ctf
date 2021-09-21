@@ -1,0 +1,442 @@
+#!/usr/bin/env bash
+
+# ===================== 基础变量设置 =====================
+
+if test -e /usr/local/bin/f8x
+then
+    sleep 0.001
+else
+    curl -o f8x https://f8x.io/ && mv --force f8x /usr/local/bin/f8x && chmod +x /usr/local/bin/f8x && echo -e "\033[1;36m$(date +"%H:%M:%S")\033[0m \033[1;32m[INFOR]\033[0m - \033[1;32m已安装 f8x 工具\033[0m" || echo -e "\033[1;36m$(date +"%H:%M:%S")\033[0m \033[1;31m[ERROR]\033[0m - \033[1;31mf8x 安装失败\n\033[0m"
+fi
+
+. /usr/local/bin/f8x
+
+F8x_ctf_Version="0.0.2 Dev"
+
+# ===================== 软件版本变量设置 =====================
+
+Main
+Base_Dir
+Pentest_Base_Install > /dev/null 2>&1
+
+bkcrack_Ver="v1.3.1"
+bkcrack_bin="bkcrack-1.3.1-Linux.tar.gz"
+bkcrack_dir="bkcrack-1.3.1-Linux"
+
+# ===================== CTF MISC 工具 =====================
+
+CTF_Misc_py3_module_install(){
+
+    Install_Switch4 "base58"
+    Install_Switch4 "uncompyle6"
+    Install_Switch4 "requests"
+    Install_Switch4 "gmpy2" > /dev/null 2>&1
+    Install_Switch4 "zlib" > /dev/null 2>&1
+    Install_Switch4 "struct" > /dev/null 2>&1
+    Install_Switch4 "libnum"
+    name="Pillow"
+    python3 -m pip install --upgrade Pillow > /dev/null 2>&1 && Echo_INFOR "已安装 Pillow" || Echo_ERROR2
+
+}
+
+CTF_Misc_py2_module_install(){
+
+    Install_Switch3 "pybase62"
+    Install_Switch3 "base92"
+
+}
+
+CTF_stegoveritas_install(){
+
+    name="stegoveritas"
+    which stegoveritas > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        pip3 install stegoveritas 1> /dev/null 2>> /tmp/f8x_error.log
+        stegoveritas_install_deps > /dev/null 2>&1
+        which stegoveritas > /dev/null 2>&1 && Echo_INFOR "已安装 stegoveritas" || Echo_ERROR2
+    fi
+
+}
+
+CTF_ImageMagick_install(){
+
+    name="ImageMagick"
+    which convert > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "graphicsmagick-imagemagick-compat" && Echo_INFOR "已安装 graphicsmagick-imagemagick-compat" || Echo_ERROR2
+        Install_Switch "imagemagick" && Echo_INFOR "已安装 imagemagick" || Echo_ERROR2
+    fi
+
+}
+
+CTF_morse2ascii_install(){
+
+    name="morse2ascii"
+    which morse2ascii > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "morse2ascii" && Echo_INFOR "已安装 imagemagick" || Echo_ERROR2
+    fi
+
+}
+
+CTF_exiftool_install(){
+
+    name="exiftool"
+    which exiftool > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "exiftool" && Echo_INFOR "已安装 exiftool" || Echo_ERROR2
+    fi
+
+}
+
+CTF_steghide_install(){
+
+    name="steghide"
+    which steghide > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "steghide" && Echo_INFOR "已安装 steghide" || Echo_ERROR2
+    fi
+
+}
+
+CTF_tshark_install(){
+
+    name="tshark"
+    which tshark > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "tshark" && Echo_INFOR "已安装 tshark" || Echo_ERROR2
+    fi
+
+}
+
+CTF_pdfinfo_install(){
+
+    name="pdfinfo"
+    which pdfinfo > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        Install_Switch "poppler-utils" && Echo_INFOR "已安装 pdfinfo" || Echo_ERROR2
+    fi
+
+}
+
+CTF_zbarimg_install(){
+
+    name="zbarimg"
+    which zbarimg > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        case $Linux_Version in
+            *"CentOS"*|*"RedHat"*|*"Fedora"*)
+                Install_Switch "zbar" && Echo_INFOR "已安装 zbarimg" || Echo_ERROR2
+                ;;
+            *"Kali"*|*"Ubuntu"*|*"Debian"*)
+                Install_Switch "zbar-tools" && Echo_INFOR "已安装 zbarimg" || Echo_ERROR2
+                ;;
+            *) ;;
+        esac
+    fi
+
+}
+
+CTF_outguess_install(){
+
+    name="outguess"
+    which outguess > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        mkdir -p /tmp/outguess && cd /tmp/outguess
+        $Porxy_OK git clone https://github.com/crorvick/outguess > /dev/null 2>&1
+        cd outguess
+        ./configure > /dev/null 2>&1 && make > /dev/null 2>&1 && make install > /dev/null 2>&1
+        which outguess > /dev/null 2>&1 && Echo_INFOR "已安装 outguess" || Echo_ERROR2
+        rm -rf /tmp/outguess
+    fi
+
+}
+
+CTF_bkcrack_install(){
+
+    name="bkcrack"
+    which bkcrack > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        mkdir -p /tmp/bkcrack && cd /tmp/bkcrack
+        $Porxy_OK wget https://github.com/kimci86/bkcrack/releases/download/$bkcrack_Ver/$bkcrack_bin > /dev/null 2>&1
+        tar -zxvf $bkcrack_bin > /dev/null 2>&1
+        cp $bkcrack_dir/bkcrack /usr/sbin/bkcrack
+        which bkcrack > /dev/null 2>&1 && Echo_INFOR "已安装 bkcrack" || Echo_ERROR2
+        rm -rf /tmp/bkcrack
+    fi
+
+}
+
+CTF_zsteg_install(){
+
+    name="zsteg"
+    which zsteg > /dev/null 2>&1
+    if [ $? == 0 ]
+    then
+        Echo_ALERT "$name 已安装"
+    else
+        $Porxy_OK gem install zsteg 1> /dev/null 2>> /tmp/f8x_error.log && Echo_INFOR "已安装 zsteg" || Echo_ERROR "调用 gem 安装 zsteg 失败! 请运行 -ruby 选项安装 Ruby 环境"
+    fi
+
+}
+
+CTF_F5-steganography_install(){
+
+    name="F5-steganography"
+    dir="$P_Dir/F5-steganography"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+        cd $P_Dir && $Porxy_OK git clone https://github.com/matthewgao/F5-steganography.git > /dev/null 2>&1 && Echo_INFOR "已下载 $name 在 $dir 目录下" || Echo_ERROR2
+    fi
+
+}
+
+CTF_LSB-Steganography_install(){
+
+    name="LSB-Steganography"
+    dir="$P_Dir/LSB-Steganography"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+        cd $P_Dir && $Porxy_OK git clone https://github.com/RobinDavid/LSB-Steganography.git > /dev/null 2>&1
+        cd LSB-Steganography
+        pip3 install -r requirements.txt > /dev/null 2>&1
+        python3 LSBSteg.py --help > /dev/null 2>&1 && Echo_INFOR "已安装 $name 在 $dir 目录下" || Echo_ERROR2
+    fi
+
+}
+
+CTF_BlindWaterMark_install(){
+
+    name="BlindWaterMark"
+    dir="$P_Dir/BlindWaterMark"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+
+        Install_Switch3 "opencv-python"
+
+        cd $P_Dir && $Porxy_OK git clone https://github.com/chishaxie/BlindWaterMark.git > /dev/null 2>&1
+        cd $dir && python2 -m pip install -r requirements.txt > /dev/null 2>&1 && Echo_INFOR "已下载 $name 在 $dir 目录下" || Echo_ERROR2
+    fi
+
+}
+
+CTF_cloacked-pixel_install(){
+
+    name="cloacked-pixel"
+    dir="$P_Dir/cloacked-pixel"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+
+        Install_Switch3 "numpy"
+        Install_Switch3 "matplotlib"
+
+        case $Linux_Version in
+            *"Kali"*|*"Ubuntu"*|*"Debian"*)
+                Install_Switch "python-tk"
+                apt-get install -y python-backports.functools-lru-cache > /dev/null 2>&1
+                ;;
+            *) ;;
+        esac
+
+        cd $P_Dir && $Porxy_OK git clone https://github.com/livz/cloacked-pixel.git > /dev/null 2>&1
+        cd $dir && python2 lsb.py -h && Echo_INFOR "已下载 $name 在 $dir 目录下" || Echo_ERROR2
+    fi
+
+}
+
+CTF_crc32_install(){
+
+    name="crc32"
+    dir="$P_Dir/crc32"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+        cd $P_Dir && $Porxy_OK git clone https://github.com/theonlypwner/crc32.git > /dev/null 2>&1
+        cd crc32
+        python3 crc32.py -h > /dev/null 2>&1 && Echo_INFOR "已安装 $name 在 $dir 目录下" || Echo_ERROR2
+    fi
+
+}
+
+CTF_Crypto_py3_module_install(){
+
+    name="ciphey"
+    python3 -m pip install --upgrade ciphey > /dev/null 2>&1 && Echo_INFOR "已安装 ciphey" || Echo_ERROR "尝试使用 --ignore-installed 安装"
+    Install_Switch4 "xortool"
+
+}
+
+# ===================== CTF IOT 工具 =====================
+
+CTF_firmware-mod-kit_Install(){
+
+    name="firmware-mod-kit"
+    dir="/opt/firmware-mod-kit/trunk"
+
+    if test -d $dir
+    then
+        Echo_ALERT "$name 已安装在 $dir"
+    else
+
+        case $Linux_Version in
+            *"CentOS"*|*"RedHat"*|*"Fedora"*)
+                Install_Switch3 "firmware-mod-kit"
+                ;;
+            *"Kali"*|*"Ubuntu"*|*"Debian"*)
+                Install_Switch3 "firmware-mod-kit"
+                ;;
+            *) ;;
+        esac
+
+    fi
+
+}
+
+CTF_MISC_tools(){
+
+    Rm_Lock
+    echo -e "\033[1;33m\n>> 正在安装 hashcat、7z2hashcat\n\033[0m"
+    Pentest_hashcat_Install
+    echo -e "\033[1;33m\n>> 正在安装常见 py 模块\n\033[0m"
+    CTF_Misc_py3_module_install
+    CTF_Misc_py2_module_install
+    echo -e "\033[1;33m\n>> 正在安装 stegoveritas\n\033[0m"
+    CTF_stegoveritas_install
+    echo -e "\033[1;33m\n>> 正在安装 ImageMagick\n\033[0m"
+    CTF_ImageMagick_install
+    echo -e "\033[1;33m\n>> 正在安装 morse2ascii\n\033[0m"
+    CTF_morse2ascii_install
+    echo -e "\033[1;33m\n>> 正在安装 exiftool\n\033[0m"
+    CTF_exiftool_install
+    echo -e "\033[1;33m\n>> 正在安装 steghide\n\033[0m"
+    CTF_steghide_install
+    echo -e "\033[1;33m\n>> 正在安装 tshark\n\033[0m"
+    CTF_tshark_install
+    echo -e "\033[1;33m\n>> 正在安装 pdfinfo\n\033[0m"
+    CTF_pdfinfo_install
+    echo -e "\033[1;33m\n>> 正在安装 zbarimg\n\033[0m"
+    CTF_zbarimg_install
+    echo -e "\033[1;33m\n>> 正在安装 outguess\n\033[0m"
+    CTF_outguess_install
+    echo -e "\033[1;33m\n>> 正在安装 bkcrack\n\033[0m"
+    CTF_bkcrack_install
+    echo -e "\033[1;33m\n>> 正在安装 zsteg\n\033[0m"
+    CTF_zsteg_install
+    echo -e "\033[1;33m\n>> 正在安装 F5-steganography\n\033[0m"
+    CTF_F5-steganography_install
+    echo -e "\033[1;33m\n>> 正在安装 LSB-Steganography\n\033[0m"
+    CTF_LSB-Steganography_install
+    echo -e "\033[1;33m\n>> 正在安装 BlindWaterMark\n\033[0m"
+    CTF_BlindWaterMark_install
+    echo -e "\033[1;33m\n>> 正在安装 crc32\n\033[0m"
+    CTF_crc32_install
+    echo -e "\033[1;33m\n>> 正在安装 cloacked-pixel\n\033[0m"
+    CTF_cloacked-pixel_install
+    Volatility_Install
+    volatility3_Install
+
+}
+
+CTF_Crypto_tools(){
+
+    echo -e "\033[1;33m\n>> 正在安装常见 py 模块\n\033[0m"
+    CTF_Crypto_py3_module_install
+
+}
+
+CTF_IOT_tools(){
+
+    Rm_Lock
+    binwalk_Install
+    echo -e "\033[1;33m\n>> 正在安装 firmware-mod-kit\n\033[0m"
+    CTF_firmware-mod-kit_Install
+
+}
+
+Help_Info(){
+
+    echo -e "\033[1;34mCTF 安装 \033[0m"
+    echo -e "\033[0;34m|- 使用\033[0m \033[1;34m-misc\033[0m \033[0;34m安装 MISC 环境\033[0m"
+    echo -e "\033[0;34m|- 使用\033[0m \033[1;34m-crypto\033[0m \033[0;34m安装 Crypto 环境\033[0m"
+    echo -e "\033[0;34m|- 使用\033[0m \033[1;34m-iot\033[0m \033[0;34m安装 IOT 环境\033[0m"
+    echo -e ""
+
+}
+
+case "$1" in
+    -misc)
+        Porxy_Switch
+        Base_Check
+        Py_Check
+        pip2_Check
+        JDK_Check
+        CTF_MISC_tools
+        ;;
+    -crypto)
+        Porxy_Switch
+        Base_Check
+        Py_Check
+        pip2_Check
+        JDK_Check
+        CTF_Crypto_tools
+        ;;
+    -iot)
+        Porxy_Switch
+        Base_Check
+        Py_Check
+        pip2_Check
+        JDK_Check
+        CTF_IOT_tools
+        ;;
+    -help | help)
+        printf "\033c"
+        Help_Info
+        exit 1
+        ;;
+esac
+
+echo -e "\033[1;36m \n-----OVER-----\n \033[0m"
