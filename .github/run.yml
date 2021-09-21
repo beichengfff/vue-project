@@ -1,0 +1,106 @@
+name: dev
+on:
+  push:
+    paths:
+    - 'f8x'
+
+jobs:
+  ubuntu-1804-build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v2
+
+      - name: init
+        run:
+          touch /tmp/IS_CI
+
+      - name: Run
+        run:
+          sudo bash f8x
+
+      - name: Run -h
+        run:
+          sudo bash f8x -h
+
+      - name: Run -clear
+        run:
+          sudo bash f8x -clear
+
+      - name: Run -b
+        run:
+          sudo bash f8x -b
+
+      - name: Run -d
+        run:
+          sudo bash f8x -d
+
+      - name: Run -s
+        run:
+          sudo bash f8x -s
+
+      - name: Run -f
+        run:
+          sudo bash f8x -f
+
+      - name: Run -k
+        run:
+          sudo bash f8x -k
+
+      - name: Run -info
+        run:
+          sudo bash f8x -info
+
+      - name: log
+        run:
+          cat /tmp/f8x_error.log
+
+  ubuntu-2004-build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v2
+
+      - name: init
+        run:
+          touch /tmp/IS_CI
+
+      - name: Run
+        run:
+          sudo bash f8x
+
+      - name: Run -h
+        run:
+          sudo bash f8x -h
+
+      - name: Run -clear
+        run:
+          sudo bash f8x -clear
+
+      - name: Run -b
+        run:
+          sudo bash f8x -b
+
+      - name: Run -d
+        run:
+          sudo bash f8x -d
+
+      - name: Run -s
+        run:
+          sudo bash f8x -s
+
+      - name: Run -f
+        run:
+          sudo bash f8x -f
+
+      - name: Run -k
+        run:
+          sudo bash f8x -k
+
+      - name: Run -info
+        run:
+          sudo bash f8x -info
+
+      - name: log
+        run:
+          cat /tmp/f8x_error.log
